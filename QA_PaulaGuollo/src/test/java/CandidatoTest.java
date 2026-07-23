@@ -27,4 +27,6 @@ class CandidatoTest {
     void testGetNaturalidade() {
         assertEquals("Trofa", candidato.getNaturalidade());
     }
+
+
 }

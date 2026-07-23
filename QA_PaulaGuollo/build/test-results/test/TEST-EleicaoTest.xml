@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="EleicaoTest" tests="3" skipped="0" failures="1" errors="0" timestamp="2026-07-23T13:46:26.787Z" hostname="MacBook-Air-de-Paula.local" time="0.018">
+  <properties/>
+  <testcase name="testGetNome()" classname="EleicaoTest" time="0.008"/>
+  <testcase name="testAdicionarCandidatoValido()" classname="EleicaoTest" time="0.005">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+	at EleicaoTest.testAdicionarCandidatoValido(EleicaoTest.java:32)
+</failure>
+  </testcase>
+  <testcase name="testGetIdadeMinima()" classname="EleicaoTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

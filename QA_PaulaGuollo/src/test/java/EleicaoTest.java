@@ -25,4 +25,10 @@ class EleicaoTest {
     void testGetIdadeMinima() {
         assertEquals(18, eleicao.getIdadeMinima());
     }
+
+    @Test
+    void testAdicionarCandidatoValido() {
+        eleicao.adicionarCandidato(candidato);
+        assertTrue(eleicao.getCandidatos().contains(candidato));
+    }
 }
