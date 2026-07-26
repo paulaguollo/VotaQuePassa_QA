@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="VotoTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-07-26T18:15:49.318Z" hostname="Mac" time="0.015">
+  <properties/>
+  <testcase name="testGetEleitor()" classname="VotoTest" time="0.01"/>
+  <testcase name="testVotoGuardaReferenciasExatas()" classname="VotoTest" time="0.001"/>
+  <testcase name="testGetCandidato()" classname="VotoTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

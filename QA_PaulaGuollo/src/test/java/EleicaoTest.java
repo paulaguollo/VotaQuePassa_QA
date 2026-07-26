@@ -6,19 +6,37 @@ import static org.junit.jupiter.api.Assertions.*;
 class EleicaoTest {
 
     private Eleicao eleicao;
-    private Candidato candidato;
-    private Eleitor eleitor;
+
+    private Candidato tedesco;      // candidato principal, usado na maioria dos testes
+    private Candidato lula;         // segundo candidato, para contagem/vencedor/empate
+    private Candidato yago;         // jovem para a idade minima
+    private Candidato nuno;         // idade == idade minima
+    private Candidato bolsonisto;   // nunca e registado na eleicao
+
+    private Eleitor vitor;          // eleitor principal, valido
+    private Eleitor sara;           // segundo eleitor valido, para contagem/vencedor
+    private Eleitor bruninho;       // menor de idade
+    private Eleitor vitorLimite;    // idade == idade minima
 
     @BeforeEach
     void setUp() {
-        eleicao = new Eleicao("Eleicoes Autarquicas 2025", 18);
-        candidato = new Candidato("Joana Almeida", 42, "Trofa");
-        eleitor = new Eleitor("Ana Rocha", "E001", 20, "ana@mail.com", "911000001");
+        eleicao = new Eleicao("Eleicoes da cidade da Paulinha", 18);
+
+        tedesco = new Candidato("Tedesco", 23, "Alemanha");
+        lula = new Candidato("Lula", 60, "Brasil");
+        yago = new Candidato("Yago", 10, "Etiopia");
+        nuno = new Candidato("Nuno", 18, "Portugal");
+        bolsonisto = new Candidato("Bolsonisto", 70, "Brasil");
+
+        vitor = new Eleitor("Vitor Maravilhoso Santos", "E001", 27, "vitor@mail.com", "911000001");
+        sara = new Eleitor("Sara", "E002", 33, "sara@mail.com", "911000002");
+        bruninho = new Eleitor("Bruninho Santos", "E003", 15, "bruninho@mail.com", "911000003");
+        vitorLimite = new Eleitor("Vitor Maravilhoso Santos", "E004", 18, "vitor.limite@mail.com", "911000004");
     }
 
     @Test
     void testGetNome() {
-        assertEquals("Eleicoes Autarquicas 2025", eleicao.getNome());
+        assertEquals("Eleicoes da cidade da Paulinha", eleicao.getNome());
     }
 
     @Test
@@ -28,96 +46,84 @@ class EleicaoTest {
 
     @Test
     void testAdicionarCandidatoValido() {
-        eleicao.adicionarCandidato(candidato);
-        assertTrue(eleicao.getCandidatos().contains(candidato));
+        eleicao.adicionarCandidato(tedesco);
+        assertTrue(eleicao.getCandidatos().contains(tedesco));
     }
 
     @Test
     void testAdicionarCandidatoNaoElegivel() {
-        Candidato candidatoJovem = new Candidato("Rui Jovem", 10, "Braga");
-        assertThrows(IllegalArgumentException.class, () -> eleicao.adicionarCandidato(candidatoJovem));
+        assertThrows(IllegalArgumentException.class, () -> eleicao.adicionarCandidato(yago));
     }
 
     @Test
     void testAdicionarCandidatoIdadeLimite() {
-        Candidato candidatoLimite = new Candidato("No Limite", 18, "Porto");
-        eleicao.adicionarCandidato(candidatoLimite);
-        assertTrue(eleicao.getCandidatos().contains(candidatoLimite));
+        eleicao.adicionarCandidato(nuno);
+        assertTrue(eleicao.getCandidatos().contains(nuno));
     }
 
     @Test
     void testVotarValido() {
-        eleicao.adicionarCandidato(candidato);
-        eleicao.votar(eleitor, candidato);
+        eleicao.adicionarCandidato(tedesco);
+        eleicao.votar(vitor, tedesco);
         assertEquals(1, eleicao.getVotos().size());
     }
 
     @Test
     void testVotarEleitorAbaixoIdadeMinima() {
-        Eleitor eleitorMenor = new Eleitor("Carla Nova", "E999", 15, "carla@mail.com", "911999999");
-        eleicao.adicionarCandidato(candidato);
-        assertThrows(IllegalArgumentException.class, () -> eleicao.votar(eleitorMenor, candidato));
+        eleicao.adicionarCandidato(tedesco);
+        assertThrows(IllegalArgumentException.class, () -> eleicao.votar(bruninho, tedesco));
     }
 
     @Test
     void testVotarEleitorIdadeLimite() {
-        Eleitor eleitorLimite = new Eleitor("No Limite", "E998", 18, "limite@mail.com", "911999998");
-        eleicao.adicionarCandidato(candidato);
-        eleicao.votar(eleitorLimite, candidato);
+        eleicao.adicionarCandidato(tedesco);
+        eleicao.votar(vitorLimite, tedesco);
         assertEquals(1, eleicao.getVotos().size());
     }
 
-    // Requisito 2: nao pode votar num candidato que nao esta registado na eleicao
     @Test
     void testVotarCandidatoNaoRegistado() {
-        Candidato candidatoForaDaEleicao = new Candidato("Fora", 40, "Aveiro");
-        assertThrows(IllegalArgumentException.class, () -> eleicao.votar(eleitor, candidatoForaDaEleicao));
+        assertThrows(IllegalArgumentException.class, () -> eleicao.votar(vitor, bolsonisto));
     }
 
     @Test
     void testVotarDuasVezes() {
-        eleicao.adicionarCandidato(candidato);
-        eleicao.votar(eleitor, candidato);
-        assertThrows(IllegalArgumentException.class, () -> eleicao.votar(eleitor, candidato));
+        eleicao.adicionarCandidato(tedesco);
+        eleicao.votar(vitor, tedesco);
+        assertThrows(IllegalArgumentException.class, () -> eleicao.votar(vitor, tedesco));
     }
 
     @Test
     void testContarVotos() {
-        Eleitor eleitor2 = new Eleitor("Joao Novo", "E997", 25, "joao@mail.com", "911999997");
-        eleicao.adicionarCandidato(candidato);
-        eleicao.votar(eleitor, candidato);
-        eleicao.votar(eleitor2, candidato);
-        assertEquals(2, eleicao.contarVotos(candidato));
+        eleicao.adicionarCandidato(tedesco);
+        eleicao.votar(vitor, tedesco);
+        eleicao.votar(sara, tedesco);
+        assertEquals(2, eleicao.contarVotos(tedesco));
     }
 
     @Test
     void testObterVencedorComVencedorClaro() {
-        Candidato candidato2 = new Candidato("Ricardo Meireles", 50, "Maia");
-        Eleitor eleitor2 = new Eleitor("Joao Novo", "E997", 25, "joao@mail.com", "911999997");
-        eleicao.adicionarCandidato(candidato);
-        eleicao.adicionarCandidato(candidato2);
-        eleicao.votar(eleitor, candidato);
-        eleicao.votar(eleitor2, candidato);
-        assertEquals(candidato, eleicao.obterVencedor());
+        eleicao.adicionarCandidato(tedesco);
+        eleicao.adicionarCandidato(lula);
+        eleicao.votar(vitor, tedesco);
+        eleicao.votar(sara, tedesco);
+        assertEquals(tedesco, eleicao.obterVencedor());
     }
 
     @Test
     void testObterVencedorEmpate() {
-        Candidato candidato2 = new Candidato("Ricardo Meireles", 50, "Maia");
-        Eleitor eleitor2 = new Eleitor("Joao Novo", "E997", 25, "joao@mail.com", "911999997");
-        eleicao.adicionarCandidato(candidato);
-        eleicao.adicionarCandidato(candidato2);
-        eleicao.votar(eleitor, candidato);
-        eleicao.votar(eleitor2, candidato2);
+        eleicao.adicionarCandidato(tedesco);
+        eleicao.adicionarCandidato(lula);
+        eleicao.votar(vitor, tedesco);
+        eleicao.votar(sara, lula);
         assertNull(eleicao.obterVencedor());
     }
 
     @Test
     void testGetCandidatosEGetVotosListas() {
-        Candidato candidato2 = new Candidato("Ricardo Meireles", 50, "Maia");
-        eleicao.adicionarCandidato(candidato);
-        eleicao.adicionarCandidato(candidato2);
-        eleicao.votar(eleitor, candidato);
+        eleicao.adicionarCandidato(tedesco);
+        eleicao.adicionarCandidato(lula);
+        eleicao.votar(vitor, tedesco);
 
         assertEquals(2, eleicao.getCandidatos().size());
         assertEquals(1, eleicao.getVotos().size());
