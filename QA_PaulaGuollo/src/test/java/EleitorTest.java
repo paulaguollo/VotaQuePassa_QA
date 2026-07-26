@@ -9,13 +9,12 @@ class EleitorTest {
 
     @BeforeEach
     void setUp() {
-        // Cria um eleitor de teste antes de cada teste correr
-        eleitor = new Eleitor("Ana Rocha", "E001", 20, "ana@mail.com", "911000001");
+        eleitor = new Eleitor("Bia", "E001", 20, "bia@mail.com", "911003201");
     }
 
     @Test
     void testGetNome() {
-        assertEquals("Ana Rocha", eleitor.getNome());
+        assertEquals("Bia", eleitor.getNome());
     }
 
     @Test
@@ -30,11 +29,28 @@ class EleitorTest {
 
     @Test
     void testGetEmail() {
-        assertEquals("ana@mail.com", eleitor.getEmail());
+        assertEquals("bia@mail.com", eleitor.getEmail());
     }
 
     @Test
     void testGetTelemovel() {
-        assertEquals("911000001", eleitor.getTelemovel());
+        assertEquals("911003201", eleitor.getTelemovel());
+    }
+
+    @Test
+    void testGetterComOutrosValores() {
+        Eleitor outroEleitor = new Eleitor("Joao Rasta", "E002", 17, "joao@mail.com", "911000252");
+        assertEquals("Joao Rasta", outroEleitor.getNome());
+        assertEquals("E002", outroEleitor.getNumeroIdentificacao());
+        assertEquals(17, outroEleitor.getIdade());
+        assertEquals("joao@mail.com", outroEleitor.getEmail());
+        assertEquals("911000252", outroEleitor.getTelemovel());
+    }
+
+
+    @Test
+    void testConstrutorAceitaIdadeNegativaSemValidacao() {
+        Eleitor eleitorInvalido = new Eleitor("Teste", "E01", -30, "teste@mail.com", "9119912345");
+        assertEquals(-30, eleitorInvalido.getIdade());
     }
 }

@@ -11,9 +11,8 @@ class VotoTest {
 
     @BeforeEach
     void setUp() {
-        // Cria o eleitor e o candidato primeiro, porque o voto precisa dos dois
-        eleitor = new Eleitor("Ana Rocha", "E001", 20, "ana@mail.com", "911000001");
-        candidato = new Candidato("Joana Almeida", 42, "Trofa");
+        eleitor = new Eleitor("Bia", "E001", 20, "bia@mail.com", "911003201");
+        candidato = new Candidato("Paula", 30, "Lisboa");
         voto = new Voto(eleitor, candidato);
     }
 
@@ -25,5 +24,11 @@ class VotoTest {
     @Test
     void testGetCandidato() {
         assertEquals(candidato, voto.getCandidato());
+    }
+
+    @Test
+    void testVotoGuardaReferenciasExatas() {
+        assertSame(eleitor, voto.getEleitor());
+        assertSame(candidato, voto.getCandidato());
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="EleitorTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-07-26T18:03:18.942Z" hostname="Mac" time="0.017">
+  <properties/>
+  <testcase name="testGetEmail()" classname="EleitorTest" time="0.009"/>
+  <testcase name="testGetIdade()" classname="EleitorTest" time="0.0"/>
+  <testcase name="testGetterComOutrosValores()" classname="EleitorTest" time="0.0"/>
+  <testcase name="testGetNome()" classname="EleitorTest" time="0.0"/>
+  <testcase name="testConstrutorAceitaIdadeNegativaSemValidacao()" classname="EleitorTest" time="0.0"/>
+  <testcase name="testGetNumeroIdentificacao()" classname="EleitorTest" time="0.0"/>
+  <testcase name="testGetTelemovel()" classname="EleitorTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
