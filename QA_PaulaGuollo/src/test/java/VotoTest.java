@@ -16,16 +16,19 @@ class VotoTest {
         voto = new Voto(eleitor, candidato);
     }
 
+    // Verifica se o getter do eleitor devolve o eleitor que foi usado para criar o voto
     @Test
     void testGetEleitor() {
         assertEquals(eleitor, voto.getEleitor());
     }
 
+    // Verifica se o getter do candidato devolve o candidato que foi usado para criar o voto
     @Test
     void testGetCandidato() {
         assertEquals(candidato, voto.getCandidato());
     }
 
+    // Confirma que o voto guarda exatamente os dados passados. Nao cria copias do eleitor nem do candidato
     @Test
     void testVotoGuardaReferenciasExatas() {
         assertSame(eleitor, voto.getEleitor());
